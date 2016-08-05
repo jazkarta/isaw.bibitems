@@ -1,0 +1,4 @@
+<layers>
+    <layer name="isaw.bibitems"
+           interface="isaw.bibitems.interfaces.IISAWBibItemsLayer" />
+</layers>
