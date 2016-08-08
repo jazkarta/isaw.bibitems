@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+    <javascript cacheable="True" compression="none" cookable="True"
+                enabled="True" inline="False"
+                id="++resource++isaw.bibitems/bibform.js"
+                insert-after="jquery-integration.js"/>
+</object>

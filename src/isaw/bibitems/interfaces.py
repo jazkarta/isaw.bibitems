@@ -44,3 +44,10 @@ class IBibliographicItem(model.Schema):
                       u"resource."),
         required=False,
     )
+
+
+class IBibliographicURLIFetcher(Interface):
+
+    def fetch(uri):
+        """Returns bibliographic data (in a dictionary) given a URI for a bibliographic
+        resource"""

@@ -1,0 +1,13 @@
+button.BibInfoFetchButton {
+	height: 2em;
+	padding: 5px;
+	margin-left: 10px;
+}
+
+button.BibInfoFetchButton span {
+	display: none;
+}
+
+button.BibInfoFetchButton:after {
+	content: "\1F50D";
+}

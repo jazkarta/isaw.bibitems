@@ -41,6 +41,10 @@ setup(name='isaw.bibitems',
           'plone.namedfile [blobs]',
           'collective.dexteritytextindexer',
           'collective.autopermission',
+          'five.grok',
+          'pyzotero',
+          'requests',
+          'beautifulsoup4',
       ],
       extras_require={
           'test': [
