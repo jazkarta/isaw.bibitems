@@ -27,6 +27,7 @@ class JSONBiblographyDataFetcher(grok.View):
                     hostname
                 ),
             }
+            return
 
         self.data = fetcher.fetch(url)
 
