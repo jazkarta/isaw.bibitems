@@ -1,4 +1,6 @@
+from plone.autoform import directives as form
 from plone.supermodel import model
+from z3c.form.interfaces import IEditForm, IAddForm
 from zope import schema
 from zope.interface import Interface
 from . import MessageFactory as _
@@ -13,6 +15,13 @@ class IBibliographicItem(model.Schema):
     title = schema.TextLine(
         title=_(u"Short Title"),
         description=_(u"The short title of the bibliographic reference."),
+    )
+
+    description = schema.Text(
+        title=_(u'Summary'),
+        description=_(u'Used in item listings and search results.'),
+        required=False,
+        missing_value=u'',
     )
 
     citation_detail = schema.TextLine(
@@ -44,6 +53,10 @@ class IBibliographicItem(model.Schema):
                       u"resource."),
         required=False,
     )
+
+    form.omitted('description')
+    form.no_omit(IEditForm, 'description')
+    form.no_omit(IAddForm, 'description')
 
 
 class IBibliographicURLIFetcher(Interface):

@@ -36,6 +36,15 @@
       import_steps="jsregistry cssregistry"
       />
 
+  <genericsetup:upgradeDepends
+      source="0002"
+      destination="0003"
+      title="Update behaviors to include description"
+      description=""
+      profile="isaw.bibitems:default"
+      import_steps="typeinfo"
+      />
+
   <permission
     id="isaw.bibitems.AddBibItem"
     title="isaw.bibitems: Add Bibliographic Item"
