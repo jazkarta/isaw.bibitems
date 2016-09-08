@@ -1,6 +1,6 @@
 jQuery(function () {
 
-  var $bib_uri_input = $('.portaltype-isaw-bibitems-bibitem input#form-widgets-bibliographic_uri');
+  var $bib_uri_input = $('input#form-widgets-bibliographic_uri');
   if ($bib_uri_input.length){
     var $lookup = $('<button class="BibInfoFetchButton" title="Fetch bibliographic data"><span>Fetch Bib Info</span></button>');
     $bib_uri_input.after($lookup);
