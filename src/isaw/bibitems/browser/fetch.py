@@ -34,7 +34,7 @@ class JSONBiblographyDataFetcher(grok.View):
         self.data = fetcher.fetch(url)
         if self.data.get(u'formatted_citation'):
             self.data[u'plain'] = transforms.convertTo(
-                'text/plain', self.data.get('formatted_citation'),
+                'text/plain', self.data['formatted_citation'],
                 mimetype='text/html'
             ).getData().strip()
         else:
