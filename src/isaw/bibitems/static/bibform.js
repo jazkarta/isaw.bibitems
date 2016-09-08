@@ -1,6 +1,6 @@
 jQuery(function () {
 
-  var $bib_uri_input = $('input#form-widgets-bibliographic_uri');
+  var $bib_uri_input = $('.portaltype-isaw-bibitems-bibitem input#form-widgets-bibliographic_uri');
   if ($bib_uri_input.length){
     var $lookup = $('<button class="BibInfoFetchButton" title="Fetch bibliographic data"><span>Fetch Bib Info</span></button>');
     $bib_uri_input.after($lookup);
@@ -19,6 +19,7 @@ jQuery(function () {
               return;
             }
             var $title = $bib_uri_input.parents().find('#form-widgets-title');
+            var $description = $bib_uri_input.parents().find('#form-widgets-description');
             var $detail = $bib_uri_input.parents().find('#form-widgets-citation_detail');
             var $formatted = $bib_uri_input.parents().find('#form-widgets-formatted_citation');
             var $access_uri = $bib_uri_input.parents().find('#form-widgets-access_uri');
@@ -34,6 +35,9 @@ jQuery(function () {
             }
             if (data.access_uri) {
               $access_uri.val(data.access_uri);
+            }
+            if (data.plain) {
+              $description.val(data.plain);
             }
           }
         ).error(function (resp) {var data = JSON.parse(resp.responseText); alert(data.error);});

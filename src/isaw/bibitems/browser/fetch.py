@@ -3,6 +3,7 @@ from json import dumps
 from urlparse import urlparse
 from zope.component import queryUtility
 from zExceptions import BadRequest
+from Products.CMFCore.utils import getToolByName
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from ..interfaces import IBibliographicURLIFetcher
 
@@ -19,6 +20,7 @@ class JSONBiblographyDataFetcher(grok.View):
         if not url:
             raise BadRequest('Missing request parameter "uri"')
 
+        transforms = getToolByName(self.context, 'portal_transforms')
         hostname = urlparse(url).hostname
         fetcher = queryUtility(IBibliographicURLIFetcher, name=hostname)
         if fetcher is None:
@@ -30,6 +32,13 @@ class JSONBiblographyDataFetcher(grok.View):
             return
 
         self.data = fetcher.fetch(url)
+        if self.data.get(u'formatted_citation'):
+            self.data[u'plain'] = transforms.convertTo(
+                'text/plain', self.data.get('formatted_citation'),
+                mimetype='text/html'
+            ).getData().strip()
+        else:
+            self.data[u'plain'] = u''
 
     def render(self):
         res = self.request.response

@@ -47,10 +47,13 @@ class ZoteroWebParser(grok.GlobalUtility):
         data = self._zotero_api_result()
         result = {}
         if data.get('data'):
-            result['short_title'] = data['data']['shortTitle']
-            result['title'] = data['data']['title']
-            result['formatted_citation'] = data['formatted']
-            result['access_uri'] = data['data']['url']
+            result[u'short_title'] = data['data']['shortTitle']
+            result[u'title'] = data['data']['title']
+            result[u'formatted_citation'] = data['formatted']
+            result[u'access_uri'] = data['data']['url']
+
+        if isinstance(result.get(u'formatted_citation'), list):
+            result[u'formatted_citation'] = result[u'formatted_citation'][0]
 
         return result
 
