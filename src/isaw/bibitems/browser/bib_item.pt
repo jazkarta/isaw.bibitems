@@ -6,8 +6,7 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="kcrw.site">
 <body>
-  <metal:core fill-slot="main">
-    <h1 class="documentFirstHeading" tal:content="context/title|nothing">Title</h1>
+  <metal:core fill-slot="content-core">
     <div class="FormattedCitation"
          tal:condition="context/formatted_citation|nothing"
          tal:content="structure context/formatted_citation">
