@@ -8,15 +8,15 @@
 <body>
   <metal:core fill-slot="content-core">
     <div class="FormattedCitation"
-         tal:condition="context/formatted_citation"
+         tal:condition="context/formatted_citation|nothing"
          tal:content="structure context/formatted_citation">
          Formatted Citation
     </div>
-    <div class="AccessLinks" tal:condition="python:context.access_uri or context.alternate_uri">
+    <div class="AccessLinks" tal:condition="python:getattr(context, 'access_uri', None) or getattr(context, 'alternate_uri', None)">
       <span class="label">read:</span>
-      <a class="AccessButton button" tal:condition="context/access_uri" tal:attributes="href context/access_url"
+      <a class="AccessButton button" tal:condition="context/access_uri|nothing" tal:attributes="href context/access_url"
          tal:content="python:'.'.join(context.access_uri.split('://')[1].split('/')[0].split('.')[-2:])">jstor.org</a>
-      <a class="AccessButton button" tal:condition="context/alternate_uri" tal:attributes="href context/alternat_uri"
+      <a class="AccessButton button" tal:condition="context/alternate_uri|nothing" tal:attributes="href context/alternat_uri"
          tal:content="python:'.'.join(context.alternate_uri.split('://')[1].split('/')[0].split('.')[-2:])">jstor.org</a>
     </div>
     <div class="BibliographicLinks" tal:condition="context/bibliographic_uri|nothing">
