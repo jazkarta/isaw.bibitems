@@ -9,3 +9,26 @@ button.BibInfoFetchButton span {
 button.BibInfoFetchButton:before {
 	content: "\1F50D";
 }
+
+.FormattedCitation {
+    margin-bottom: 1em;
+    clear: both;
+    overflow: hidden;
+    text-align: center;
+    font-size: 120%;
+}
+
+.AccessLinks, .BibliographicLinks {
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 1em;
+}
+
+.AccessLinks .label, .BibliographicLinks .label {
+    font-weight: normal;
+}
+
+a.AccessButton.button {
+    text-transform: lowercase;
+    padding: 8px 12px;
+}

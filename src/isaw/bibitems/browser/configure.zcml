@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="isaw.exhibitions">
+
+  <browser:page
+    for="..interfaces.IBibliographicItem"
+    template="bib_item.pt"
+    name="view"
+    permission="zope2.View"
+    />
+
+</configure>

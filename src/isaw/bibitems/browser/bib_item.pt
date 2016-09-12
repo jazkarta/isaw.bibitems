@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="kcrw.site">
+<body>
+  <metal:core fill-slot="content-core">
+    <div class="FormattedCitation"
+         tal:condition="context/formatted_citation"
+         tal:content="structure context/formatted_citation">
+         Formatted Citation
+    </div>
+    <div class="AccessLinks" tal:condition="python:context.access_uri or context.alternate_uri">
+      <span class="label">read:</span>
+      <a class="AccessButton button" tal:condition="context/access_uri" tal:attributes="href context/access_url"
+         tal:content="python:'.'.join(context.access_uri.split('://')[1].split('/')[0].split('.')[-2:])">jstor.org</a>
+      <a class="AccessButton button" tal:condition="context/alternate_uri" tal:attributes="href context/alternat_uri"
+         tal:content="python:'.'.join(context.alternate_uri.split('://')[1].split('/')[0].split('.')[-2:])">jstor.org</a>
+    </div>
+    <div class="BibliographicLinks" tal:condition="context/bibliographic_uri|nothing">
+      <span class="label">bibliographic record:</span>
+      <a class="AccessButton button" tal:attributes="href context/bibliographic_uri"
+         tal:content="python:'.'.join(context.bibliographic_uri.split('://')[1].split('/')[0].split('.')[-2:])">jstor.org</a>
+    </div>
+  </metal:core>
+</body>
+</html>
