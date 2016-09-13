@@ -7,6 +7,7 @@
     for="..interfaces.IBibliographicItem"
     template="bib_item.pt"
     name="view"
+    class=".view.BibItemView"
     permission="zope2.View"
     />
 

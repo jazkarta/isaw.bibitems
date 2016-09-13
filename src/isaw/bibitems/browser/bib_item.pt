@@ -15,14 +15,14 @@
     <div class="AccessLinks" tal:condition="python:getattr(context, 'access_uri', None) or getattr(context, 'alternate_uri', None)">
       <span class="label">read:</span>
       <a class="AccessButton button" tal:condition="context/access_uri|nothing" tal:attributes="href context/access_uri"
-         tal:content="python:'.'.join(context.access_uri.split('://')[1].split('/')[0].split('.')[-2:])">jstor.org</a>
+         tal:content="python:view.url_domain(context.access_uri)">jstor.org</a>
       <a class="AccessButton button" tal:condition="context/alternate_uri|nothing" tal:attributes="href context/alternate_uri"
-         tal:content="python:'.'.join(context.alternate_uri.split('://')[1].split('/')[0].split('.')[-2:])">jstor.org</a>
+         tal:content="python:view.url_domain(context.alternate_uri)">jstor.org</a>
     </div>
     <div class="BibliographicLinks" tal:condition="context/bibliographic_uri|nothing">
       <span class="label">bibliographic record:</span>
       <a class="AccessButton button" tal:attributes="href context/bibliographic_uri"
-         tal:content="python:'.'.join(context.bibliographic_uri.split('://')[1].split('/')[0].split('.')[-2:])">jstor.org</a>
+         tal:content="python:view.url_domain(context.bibliographic_uri)">jstor.org</a>
     </div>
   </metal:core>
 </body>
