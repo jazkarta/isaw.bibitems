@@ -1,8 +1,10 @@
 from plone.autoform import directives as form
+from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
 from z3c.form.interfaces import IEditForm, IAddForm
 from zope import schema
 from zope.interface import Interface
+from zope.interface import provider
 from . import MessageFactory as _
 
 
@@ -10,6 +12,7 @@ class IISAWBibItemsLayer(Interface):
     pass
 
 
+@provider(IFormFieldProvider)
 class IBibliographicItem(model.Schema):
 
     title = schema.TextLine(

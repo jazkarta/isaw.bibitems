@@ -46,9 +46,24 @@
       import_steps="typeinfo"
       />
 
+  <genericsetup:upgradeDepends
+      source="0003"
+      destination="0004"
+      title="Move bibitem fields into behavior"
+      description=""
+      profile="isaw.bibitems:default"
+      import_steps="typeinfo"
+      />
+
   <permission
     id="isaw.bibitems.AddBibItem"
     title="isaw.bibitems: Add Bibliographic Item"
     />
+
+  <plone:behavior
+    title="Bibliographic Item"
+    description="Add bibliographic data to content items."
+    provides=".interfaces.IBibliographicItem"
+    for="plone.dexterity.interfaces.IDexterityContent" />
 
 </configure>

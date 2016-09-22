@@ -12,12 +12,13 @@
   <property name="global_allow">True</property>
 
   <!-- schema and class used for content items -->
-  <property name="schema">isaw.bibitems.interfaces.IBibliographicItem</property> 
+  <property name="schema"></property>
   <property name="klass">plone.dexterity.content.Item</property>
 
   <property name="behaviors">
      <element value="plone.app.content.interfaces.INameFromTitle"/>
      <element value="plone.app.dexterity.behaviors.metadata.IPublication"/>
+     <element value="isaw.bibitems.interfaces.IBibliographicItem"/>
      <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer"/>
   </property>
 
