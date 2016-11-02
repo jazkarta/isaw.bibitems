@@ -16,7 +16,7 @@ jQuery(function () {
           {"url": uri},
           function (data) {
             if (data.error) {
-              alert(data.error);
+              window.alert(data.error);
               return;
             }
             var $short_title = $bib_uri_input.parents().find('#form-widgets-short_title');
@@ -47,7 +47,14 @@ jQuery(function () {
               $description.val(data.plain);
             }
           }
-        ).error(function (resp) {var data = JSON.parse(resp.responseText); alert(data.error);});
+        ).error(function (resp) {
+            try {
+              var data = JSON.parse(resp.responseText);
+              window.alert(data.error);
+            } catch(err) {
+              window.alert('Error code: ' + resp.status + ' while retrieving Zotero response');
+            }
+        });
       }
       return false;
     });

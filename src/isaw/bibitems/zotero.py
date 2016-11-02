@@ -18,7 +18,12 @@ class ZoteroWebParser(grok.GlobalUtility):
 
     def fetch(self, uri):
         url_path = urlparse(uri).path
-        self.item_id = url_path.split('/')[-1]
+        path_parts = url_path.split('/')
+        if 'itemKey' in path_parts:
+            self.item_id = path_parts[path_parts.index('itemKey') + 1]
+        else:
+            # Guess?
+            self.item_id = path_parts[-1]
 
         try:
             response = requests.get(uri)
