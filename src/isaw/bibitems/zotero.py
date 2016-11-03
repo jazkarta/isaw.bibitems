@@ -56,6 +56,7 @@ class ZoteroWebParser(grok.GlobalUtility):
             result[u'title'] = data['data']['title']
             result[u'formatted_citation'] = data['formatted']
             result[u'access_uri'] = data['data']['url']
+            result[u'bibliographic_uri'] = data['links']['alternate']['href']
 
         if isinstance(result.get(u'formatted_citation'), list):
             result[u'formatted_citation'] = result[u'formatted_citation'][0]
