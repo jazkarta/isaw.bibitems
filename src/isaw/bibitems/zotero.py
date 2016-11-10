@@ -52,11 +52,39 @@ class ZoteroWebParser(grok.GlobalUtility):
         data = self._zotero_api_result()
         result = {}
         if data.get('data'):
-            result[u'short_title'] = data['data']['shortTitle']
-            result[u'title'] = data['data']['title']
+            info = data['data']
+            result[u'short_title'] = info['shortTitle']
+            result[u'title'] = info['title']
             result[u'formatted_citation'] = data['formatted']
-            result[u'access_uri'] = data['data']['url']
+            result[u'access_uri'] = info['url']
             result[u'bibliographic_uri'] = data['links']['alternate']['href']
+            authors = result[u'authors'] = []
+            editors = result[u'editors'] = []
+            contributors = result[u'contributors'] = []
+            for item in info.get('creators', []):
+                if item['creatorType'] == 'author':
+                    authors.append("{}, {}".format(item['lastName'],
+                                                   item['firstName']))
+                if item['creatorType'] == 'editor':
+                    editors.append("{}, {}".format(item['lastName'],
+                                                   item['firstName']))
+                if item['creatorType'] == 'contributor':
+                    contributors.append("{}, {}".format(item['lastName'],
+                                                        item['firstName']))
+            result[u'publisher'] = info.get(u'publisher')
+            result[u'isbn'] = info.get(u'ISBN')
+            result[u'issn'] = info.get(u'ISSN')
+            result[u'doi'] = info.get(u'DOI')
+            result[u'date_of_publication'] = info.get(u'date')
+            result[u'text'] = info.get('abstractNote')
+            result[u'parent_title'] = (
+                info.get('blogTitle') or info.get('bookTitme') or
+                info.get('dictionaryTitle') or info.get('encyclopediaTitle') or
+                info.get('forumTitle') or info.get('proceedingsTitle') or
+                info.get('publicationTitle') or info.get('websiteTitle')
+            )
+            result[u'volume'] = info.get('volume')
+            result[u'range'] = info.get('pages')
 
         if isinstance(result.get(u'formatted_citation'), list):
             result[u'formatted_citation'] = result[u'formatted_citation'][0]

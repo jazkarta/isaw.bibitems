@@ -19,12 +19,25 @@ jQuery(function () {
               window.alert(data.error);
               return;
             }
-            var $short_title = $bib_uri_input.parents().find('#form-widgets-short_title');
-            var $full_title = $bib_uri_input.parents().find('#form-widgets-title, #form-widgets-IBibliographicItem-title');
-            var $description = $bib_uri_input.parents().find('#form-widgets-description, #form-widgets-IBibliographicItem-description');
-            var $detail = $bib_uri_input.parents().find('#form-widgets-citation_detail, #form-widgets-IBibliographicItem-citation_detail');
-            var $formatted = $bib_uri_input.parents().find('#form-widgets-formatted_citation, #form-widgets-IBibliographicItem-formatted_citation');
-            var $access_uri = $bib_uri_input.parents().find('#form-widgets-access_uri, #form-widgets-IBibliographicItem-access_uri');
+            var $parents = $bib_uri_input.parents();
+            var $short_title = $parents.find('#form-widgets-short_title');
+            var $full_title = $parents.find('#form-widgets-title, #form-widgets-IBibliographicItem-title');
+            var $description = $parents.find('#form-widgets-description, #form-widgets-IBibliographicItem-description');
+            var $detail = $parents.find('#form-widgets-citation_detail, #form-widgets-IBibliographicItem-citation_detail');
+            var $formatted = $parents.find('#form-widgets-formatted_citation, #form-widgets-IBibliographicItem-formatted_citation');
+            var $access_uri = $parents.find('#form-widgets-access_uri, #form-widgets-access_uris, #form-widgets-IBibliographicItem-access_uri');
+            var $authors = $parents.find('#form-widgets-authors');
+            var $editors = $parents.find('#form-widgets-editors');
+            var $contributors = $parents.find('#form-widgets-contributors');
+            var $publisher = $parents.find('#form-widgets-publisher');
+            var $isbn = $parents.find('#form-widgets-isbn');
+            var $issn = $parents.find('#form-widgets-issn');
+            var $doi = $parents.find('#form-widgets-doi');
+            var $date_of_publication = $parents.find('#form-widgets-date_of_publication');
+            var $text = $parents.find('#form-widgets-text');
+            var $parent_title = $parents.find('#form-widgets-parent_title');
+            var $volume = $parents.find('#form-widgets-volume');
+            var $range = $parents.find('#form-widgets-range');
             var title = data.short_title || data.title;
             if ($short_title.length) {
               $short_title.val(data.short_title || '');
@@ -41,13 +54,55 @@ jQuery(function () {
               $formatted.val(data.formatted_citation);
             }
             if (data.access_uri) {
-              $access_uri.val(data.access_uri);
+              if ($access_uri.is('textarea') && $access_uri.val() && $access_uri.val() != data.access_uri) {
+                if ($access_uri.val().split('\n')[0] != data.access_uri) {
+                  $access_uri.val(data.access_uri + '\n' +  $access_uri.val());
+                }
+              } else {
+                $access_uri.val(data.access_uri);
+              }
             }
             if (data.bibliographic_uri) {
               $bib_uri_input.val(data.bibliographic_uri);
             }
             if (data.plain) {
               $description.val(data.plain);
+            }
+            if (data.authors) {
+              $authors.val(data.authors.join("\n"));
+            }
+            if (data.editors) {
+              $editors.val(data.editors.join("\n"));
+            }
+            if (data.contributors) {
+              $contributors.val(data.contributors.join("\n"));
+            }
+            if (data.publisher) {
+              $publisher.val(data.publisher);
+            }
+            if (data.isbn) {
+              $isbn.val(data.isbn);
+            }
+            if (data.issn) {
+              $issn.val(data.issn);
+            }
+            if (data.doi) {
+              $doi.val(data.doi);
+            }
+            if (data.date_of_publication) {
+              $date_of_publication.val(data.date_of_publication);
+            }
+            if (data.parent_title) {
+              $parent_title.val(data.parent_title);
+            }
+            if (data.volume) {
+              $volume.val(data.volume);
+            }
+            if (data.range) {
+              $range.val(data.range);
+            }
+            if (data.text) {
+              $text.val(data.text);
             }
           }
         ).error(function (resp) {
