@@ -63,14 +63,14 @@ class ZoteroWebParser(grok.GlobalUtility):
             contributors = result[u'contributors'] = []
             for item in info.get('creators', []):
                 if item['creatorType'] == 'author':
-                    authors.append("{}, {}".format(item['lastName'],
-                                                   item['firstName']))
+                    authors.append({'lastName': item['lastName'],
+                                    'firstName': item['firstName']})
                 if item['creatorType'] == 'editor':
-                    editors.append("{}, {}".format(item['lastName'],
-                                                   item['firstName']))
+                    editors.append({'lastName': item['lastName'],
+                                    'firstName': item['firstName']})
                 if item['creatorType'] == 'contributor':
-                    contributors.append("{}, {}".format(item['lastName'],
-                                                        item['firstName']))
+                    contributors.append({'lastName': item['lastName'],
+                                         'firstName': item['firstName']})
             result[u'publisher'] = info.get(u'publisher')
             result[u'isbn'] = info.get(u'ISBN')
             result[u'issn'] = info.get(u'ISSN')
