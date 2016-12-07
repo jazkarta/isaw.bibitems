@@ -69,13 +69,13 @@ jQuery(function () {
               $description.val(data.plain);
             }
             if (data.authors) {
-              $authors.val(data.authors.map(function (m) {return m.firstName + ' ' + m.lastName;}).join("\n"));
+              $authors.val(data.authors.map(function (m) {return m.name || (m.firstName + ' ' + m.lastName);}).join("\n"));
             }
             if (data.editors) {
-              $editors.val(data.editors.map(function (m) {return m.firstName + ' ' + m.lastName;}).join("\n"));
+              $editors.val(data.editors.map(function (m) {return m.name || (m.firstName + ' ' + m.lastName);}).join("\n"));
             }
             if (data.contributors) {
-              $contributors.val(data.contributors.map(function (m) {return m.firstName + ' ' + m.lastName;}).join("\n"));
+              $contributors.val(data.contributors.map(function (m) {return m.name || (m.firstName + ' ' + m.lastName);}).join("\n"));
             }
             if (data.publisher) {
               $publisher.val(data.publisher);
