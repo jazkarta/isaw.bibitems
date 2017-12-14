@@ -98,7 +98,8 @@ class ZoteroWebParser(grok.GlobalUtility):
     def _zotero_api_result(self):
         api = zotero.Zotero(self.library_id, self.library_type)
         results = api.item(self.item_id, format='json')
-        formatted = api.item(self.item_id, content='bib')
+        formatted = api.item(self.item_id, content='bib',
+            style='http://atlantides.org/csl/pleiades-gazetteer.csl')
         results['formatted'] = formatted
 
         return results
