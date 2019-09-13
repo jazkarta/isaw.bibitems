@@ -1,3 +1,4 @@
+from plone.app.textfield import RichText
 from plone.autoform import directives as form
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
@@ -32,8 +33,11 @@ class IBibliographicItem(model.Schema):
         required=False,
     )
 
-    formatted_citation = schema.TextLine(
-        title=_(u"Formatted Citation"),
+    formatted_citation = RichText(
+        title=_(u'Formatted Citation'),
+        default_mime_type='text/html',
+        allowed_mime_types=('text/html',),
+        output_mime_type='text/x-html-safe',
         required=False,
     )
 

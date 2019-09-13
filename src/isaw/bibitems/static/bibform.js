@@ -19,12 +19,12 @@ jQuery(function () {
               window.alert(data.error);
               return;
             }
+            var $formatted_citation = $("#form\\.widgets\\.formatted_citation_ifr").contents().find("body#content");
             var $parents = $bib_uri_input.parents();
             var $short_title = $parents.find('#form-widgets-short_title');
             var $full_title = $parents.find('#form-widgets-title, #form-widgets-IBibliographicItem-title');
             var $description = $parents.find('#form-widgets-description, #form-widgets-IBibliographicItem-description');
             var $detail = $parents.find('#form-widgets-citation_detail, #form-widgets-IBibliographicItem-citation_detail');
-            var $formatted = $parents.find('#form-widgets-formatted_citation, #form-widgets-IBibliographicItem-formatted_citation');
             var $access_uri = $parents.find('#form-widgets-access_uri, #form-widgets-access_uris, #form-widgets-IBibliographicItem-access_uri');
             var $authors = $parents.find('#form-widgets-authors');
             var $editors = $parents.find('#form-widgets-editors');
@@ -51,7 +51,7 @@ jQuery(function () {
               $detail.val(data.citation_detail);
             }
             if (data.formatted_citation) {
-              $formatted.val(data.formatted_citation);
+              $formatted_citation.html($(data.formatted_citation).html());
             }
             if (data.access_uri) {
               if ($access_uri.is('textarea') && $access_uri.val() && $access_uri.val() != data.access_uri) {
