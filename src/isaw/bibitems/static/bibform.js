@@ -21,8 +21,8 @@ jQuery(function () {
             }
             var $formatted_citation = $("#form\\.widgets\\.formatted_citation_ifr").contents().find("body#content");
             var $parents = $bib_uri_input.parents();
-            var $short_title = $parents.find('#form-widgets-short_title');
-            var $full_title = $parents.find('#form-widgets-title, #form-widgets-IBibliographicItem-title');
+            var $full_title = $parents.find('#form-widgets-full_title');
+            var $short_title = $parents.find('#form-widgets-title, #form-widgets-IBibliographicItem-title');
             var $description = $parents.find('#form-widgets-description, #form-widgets-IBibliographicItem-description');
             var $detail = $parents.find('#form-widgets-citation_detail, #form-widgets-IBibliographicItem-citation_detail');
             var $access_uri = $parents.find('#form-widgets-access_uri, #form-widgets-access_uris, #form-widgets-IBibliographicItem-access_uri');
@@ -38,19 +38,19 @@ jQuery(function () {
             var $parent_title = $parents.find('#form-widgets-parent_title');
             var $volume = $parents.find('#form-widgets-volume');
             var $range = $parents.find('#form-widgets-range');
-            var title = data.short_title || data.title;
-            if ($short_title.length) {
-              $short_title.val(data.short_title || '');
-              if (data.title && $full_title.length) {
-                $full_title.val(data.title);
-              }
-            } else if (title && $full_title.length) {
-              $full_title.val(title);
+
+            if (!$full_title.val() && data.full_title) {
+              $full_title.val(data.full_title);
+            }
+            if (!$short_title.val() && data.short_title) {
+              $short_title.val(data.short_title);
             }
             if (data.citation_detail) {
               $detail.val(data.citation_detail);
             }
             if (data.formatted_citation) {
+              // This assignment pulls the contents out of an unwanted
+              // <div class="csl-entry"> wrapper div:
               $formatted_citation.html($(data.formatted_citation).html());
             }
             if (data.access_uri) {
