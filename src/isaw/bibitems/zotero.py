@@ -17,6 +17,7 @@ class ZoteroWebParser(grok.GlobalUtility):
     item_id = None
 
     def fetch(self, uri):
+        logger.info(uri)
         o = urlparse(uri)
         if o.hostname != 'www.zotero.org':
             return {u"error": u"Only URIs in the www.zotero.org domain can be fetched."}
