@@ -86,7 +86,7 @@ class ZoteroWebParser(grok.GlobalUtility):
             result[u'date_of_publication'] = info.get(u'date')
             result[u'text'] = info.get('abstractNote')
             result[u'parent_title'] = (
-                info.get('blogTitle') or info.get('bookTitme') or
+                info.get('blogTitle') or info.get('bookTitle') or
                 info.get('dictionaryTitle') or info.get('encyclopediaTitle') or
                 info.get('forumTitle') or info.get('proceedingsTitle') or
                 info.get('publicationTitle') or info.get('websiteTitle')
