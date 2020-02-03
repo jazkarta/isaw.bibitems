@@ -17,37 +17,41 @@ class ZoteroWebParser(grok.GlobalUtility):
     item_id = None
 
     def fetch(self, uri):
-        url_path = urlparse(uri).path
-        path_parts = url_path.split('/')
-        if 'itemKey' in path_parts:
-            self.item_id = path_parts[path_parts.index('itemKey') + 1]
-        else:
-            # Guess?
-            self.item_id = path_parts[-1]
+        o = urlparse(uri)
+        if o.hostname != 'www.zotero.org':
+            return {u"error": u"Only URIs in the www.zotero.org domain can be fetched."}
+
+        user_agent = 'ISAWBibItems/(+https://github.com/isawnyu/isaw.bibitems)'
+        self.request_headers = {
+            'user-agent': user_agent,
+            'cache-control': 'no-cache'
+        }
 
         try:
-            response = requests.get(uri)
+            response = requests.get(uri, headers=self.request_headers)
         except requests.exceptions.RequestException:
-            logger.exception('Error fetching Zotero web page.')
-            return {u"error": u"Could not fetch web page"}
-
+            logger.exception('Error fetching Zotero web page: {}'.format(uri))
+            return {u"error": u"Could not fetch web page {}.".format(uri)}
         if response.status_code >= 400:
-            return {u"error": u"Could not fetch web page"}
+            return {u"error": u"Could not fetch web page {}.".format(uri)}
 
-        parsed = BeautifulSoup(response.text, "lxml")
-        details = parsed.find(id=u"item-details-div")
-        if not details:
-            return {u"error": u"Could not find item-details-div"}
+        zuri = response.url
+        if zuri != uri:
+            # a redirect has occurred
+            o = urlparse(zuri)
+        
+        path_parts = o.path.split('/')
+        if path_parts[0] == 'groups':
+            self.library_type = 'group'
+            self.library_id = path_parts[1]
+        else:
+            self.library_type = 'user'
+            self.library_id = path_parts[0]
 
-        info = loads(details.get('data-loadconfig', '{}'))
-        self.library_id = info.get('libraryID')
-        self.library_type = info.get('libraryType')
-
-        if not self.library_id:
-            return {u"error": u"Could not find determine library id"}
-
-        if not self.library_type:
-            return {u"error": u"Could not find determine library id"}
+        if 'items' in path_parts:
+            self.item_id = path_parts[path_parts.index('items') + 1]
+        else:
+            return {u"error": u"Could not parse Zotero item id from URI {}".format(zuri)}
 
         data = self._zotero_api_result()
         result = {}
