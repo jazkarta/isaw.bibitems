@@ -17,7 +17,7 @@ class ZoteroWebParser(grok.GlobalUtility):
     item_id = None
 
     def fetch(self, uri):
-        logger.info(uri)
+        logger.info('input uri: {}'.format(uri))
         o = urlparse(uri)
         if o.hostname != 'www.zotero.org':
             return {u"error": u"Only URIs in the www.zotero.org domain can be fetched."}
@@ -40,6 +40,7 @@ class ZoteroWebParser(grok.GlobalUtility):
         if zuri != uri:
             # a redirect has occurred
             o = urlparse(zuri)
+        logger.info('zuri: {}'.format(zuri))
         
         path_parts = o.path.split('/')
         if path_parts[0] == 'groups':
@@ -48,11 +49,14 @@ class ZoteroWebParser(grok.GlobalUtility):
         else:
             self.library_type = 'user'
             self.library_id = path_parts[0]
+        logger.info('library_type: {}'.format(self.library_type))
+        logger.info('library_id: {}'.format(self.library_id))
 
         if 'items' in path_parts:
             self.item_id = path_parts[path_parts.index('items') + 1]
         else:
             return {u"error": u"Could not parse Zotero item id from URI {}".format(zuri)}
+        logger.info('item_id: {}'.format(self.item_id))
 
         data = self._zotero_api_result()
         result = {}
