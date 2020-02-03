@@ -43,12 +43,12 @@ class ZoteroWebParser(grok.GlobalUtility):
         logger.info('zuri: {}'.format(zuri))
         
         path_parts = o.path.split('/')
-        if path_parts[0] == 'groups':
+        if path_parts[1] == 'groups':
             self.library_type = 'group'
-            self.library_id = path_parts[1]
+            self.library_id = path_parts[2]
         else:
             self.library_type = 'user'
-            self.library_id = path_parts[0]
+            self.library_id = path_parts[1]
         logger.info('library_type: {}'.format(self.library_type))
         logger.info('library_id: {}'.format(self.library_id))
 
