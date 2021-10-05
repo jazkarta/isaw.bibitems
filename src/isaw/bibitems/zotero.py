@@ -1,6 +1,9 @@
 import requests
 from pyzotero import zotero
-from urlparse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 from zope.interface import implementer
 from . import logger
 from .interfaces import IBibliographicURLIFetcher

@@ -1,5 +1,8 @@
 from json import dumps
-from urlparse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 from zope.component import queryUtility
 from zExceptions import BadRequest
 from Products.CMFCore.utils import getToolByName
