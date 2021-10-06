@@ -33,7 +33,9 @@ class ZoteroWebParser(grok.GlobalUtility):
             logger.exception('Error fetching Zotero web page: {}'.format(uri))
             return {u"error": u"Could not fetch web page {}.".format(uri)}
         if response.status_code >= 400:
-            return {u"error": u"Could not fetch web page {} (HTTP Error {}).".format(uri, response.status_code)}
+            return {u"error": u"Could not fetch web page {} (HTTP Error {}).".format(uri, response.status_code),
+                    u"error_code": response.status_code,
+                    u"response_headers": dict(response.headers)}
 
         zuri = response.url
         if zuri != uri:
