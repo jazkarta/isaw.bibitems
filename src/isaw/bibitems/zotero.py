@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from five import grok
 from json import loads
 from pyzotero import zotero
+from pyzotero import zotero_errors
 from urlparse import urlparse
 from . import logger
 from .interfaces import IBibliographicURLIFetcher
@@ -103,8 +104,11 @@ class ZoteroWebParser(grok.GlobalUtility):
 
     def _zotero_api_result(self):
         api = zotero.Zotero(self.library_id, self.library_type)
-        results = api.item(self.item_id, format='json')
-        formatted = api.item(self.item_id, content='bib')
+        try:
+            results = api.item(self.item_id, format='json')
+            formatted = api.item(self.item_id, content='bib')
+        except zotero_errors.HTTPError as e:
+            return {u'error': u'{}'.format(e)}
         results['formatted'] = formatted
 
         return results
